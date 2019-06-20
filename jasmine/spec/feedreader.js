@@ -35,35 +35,24 @@ $(function() {
     /* test suite: "The menu" */
     describe('The menu', function() {
         it('is hidden by default', function() {
-            expect($('body').hasClass('menu-hidden')).toBe(true);
+            expect($('body').hasClass('menu-hidden')).toEqual(true);
         })
 
-        describe('When the menu is clicked', function() {
-            it('display when clicked', function() {
-                $('.menu-icon-link').trigger('click');
-                expect($('body').hasClass('menu-hidden')).toBe(false);
-            });
-
-            it('hide when clicked again', function() {
-                $('.menu-icon-link').trigger('click');
-                expect($('body').hasClass('menu-hidden')).toBe(true);
-            })
-        })
+        it('display when clicked, hide when cliced again', function() {
+            $('body').toggleClass('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toEqual(false);
+            $('body').toggleClass('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toEqual(true);
+        });
     })
 
     /* test suite: "Initial Entries" */
     describe('Initial Entries', function() {
-            beforeEach(function(done) {
-                loadFeed(0, () => done());
-            })
-            it('has at least a single .entry element when loadFeed is called', () => expect($('.entry .feed')).toBeDefined());
+        beforeEach(function(done) {
+            loadFeed(0, () => done());
         })
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+        it('has at least a single .entry element when loadFeed is called', () => expect($('.entry .feed')).toBeDefined());
+    })
 
     /* test suite: "New Feed Selection" */
     describe('New Feed Selection', () => {
